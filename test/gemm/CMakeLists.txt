@@ -29,8 +29,10 @@ include( CMakeDependentOption )
 cmake_dependent_option( ROCWMMA_VALIDATE_WITH_ROCBLAS "Use rocBLAS for validation" ON "ROCWMMA_BUILD_VALIDATION_TESTS" OFF )
 cmake_dependent_option( ROCWMMA_BENCHMARK_WITH_ROCBLAS "Include rocBLAS benchmark performance comparisons" OFF "ROCWMMA_BUILD_BENCHMARK_TESTS" OFF )
 
-set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ${CMAKE_COMMAND};-E;time)
-set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ${CMAKE_COMMAND};-E;time)
+# Time the compile and link commands
+set(GEMM_COMPILE_TIME_COMMAND "${CMAKE_COMMAND}" "-E" "time")
+set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ${GEMM_COMPILE_TIME_COMMAND})
+set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ${GEMM_COMPILE_TIME_COMMAND})
 
 if(ROCWMMA_VALIDATE_WITH_ROCBLAS OR ROCWMMA_BENCHMARK_WITH_ROCBLAS)
   find_package( rocblas REQUIRED PATHS /opt/rocm /opt/rocm/rocblas $ENV{ROCBLAS_DIR} )
