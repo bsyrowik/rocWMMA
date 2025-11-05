@@ -30,7 +30,7 @@ cmake_dependent_option( ROCWMMA_VALIDATE_WITH_ROCBLAS "Use rocBLAS for validatio
 cmake_dependent_option( ROCWMMA_BENCHMARK_WITH_ROCBLAS "Include rocBLAS benchmark performance comparisons" OFF "ROCWMMA_BUILD_BENCHMARK_TESTS" OFF )
 
 # Time the compile and link commands
-set(GEMM_COMPILE_TIME_COMMAND "${CMAKE_COMMAND}" "-E" "time")
+set(GEMM_COMPILE_TIME_COMMAND "\"${CMAKE_COMMAND}\" -E time")
 set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ${GEMM_COMPILE_TIME_COMMAND})
 set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ${GEMM_COMPILE_TIME_COMMAND})
 
